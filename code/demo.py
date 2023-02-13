@@ -39,8 +39,8 @@ def main(src, dst, device='cuda', model_path=Path('./ckpt/best_model_nyu.ckpt'))
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         h, w, c = frame.shape
         scale = 224.0 / min(h, w)
-        new_h = h * scale // 32 * 32
-        new_w = w * scale // 32 * 32
+        new_h = int(h * scale // 32 * 32)
+        new_w = int(w * scale // 32 * 32)
         # new_h, new_w = h // 32 * 32, w // 32 * 32
         frame = cv2.resize(frame, (new_w, new_h))
         batch = to_tensor(frame).to(device).unsqueeze(0)
